@@ -36,12 +36,14 @@ Calcula la distribución de valores de los BOP del agua en función de la distan
     ./bop-rdf <directorio> [opciones]
 
 ### Opciones:
+```
   -p <número>    Parámetro de orden a usar (1-4:Q4,Q6,W4,W6, por defecto: 2-Q6)
   -t <número>    Número de hilos (por defecto: CPUs disponibles)
   -o <archivo>   Archivo de salida (por defecto: histograma.dat)
   -min <valor>   Distancia mínima (por defecto: 0.0)
   -max <valor>   Distancia máxima (por defecto: 20.0)
   -bins <número> Número de bins (por defecto: 100)
+```
 
 Ejemplo:
   ./bop-rdf /ruta/a/mis/datos -p 2 -t 8 -o resultado.csv
