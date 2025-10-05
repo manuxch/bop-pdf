@@ -46,5 +46,6 @@ Calcula la distribución de valores de los BOP del agua en función de la distan
 ```
 
 Ejemplo:
-  ./bop-rdf /ruta/a/mis/datos -p 2 -t 8 -o resultado.csv
+
+    ./bop-rdf /ruta/a/mis/datos -p 2 -t 8 -o resultado.csv
 
