@@ -9,24 +9,20 @@ Calcula la distribución de valores de los BOP del agua en función de la distan
 ### Opciones:
 
 ```
-```
     -d, --debug          Compilar en modo Debug (por defecto: Release)
     -c, --clean          Limpiar directorio de build antes de compilar
     -j, --jobs N         Usar N jobs paralelos (por defecto: todos los cores)
     -v, --verbose        Mostrar output detallado
     -h, --help           Mostrar este mensaje de ayuda
 ```
-```
 
 ### Ejemplos:
-```
 ```
     ./build.sh                    # Compilación normal Release
     ./build.sh --debug            # Compilación Debug
     ./build.sh --clean --debug    # Limpiar y compilar en Debug
     ./build.sh --jobs 4           # Usar 4 cores para compilar
     ./build.sh --verbose          # Output detallado
-```
 ```
 
 ### Descripción:
