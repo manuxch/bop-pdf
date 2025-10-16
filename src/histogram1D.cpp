@@ -1,10 +1,12 @@
 // src/Histogram1D.cpp
 #include "Histogram1D.h"
+#include <cmath>
 
 Histogram1D::Histogram1D(double minDist, double maxDist, int bins)
     : minDistance(minDist), maxDistance(maxDist),
       numBins(bins), binWidth((maxDist - minDist) / bins) {
     sumValues.resize(numBins, 0.0);
+    sumSquaredValues.resize(numBins, 0.0);
     counts.resize(numBins, 0);
 }
 
@@ -18,20 +20,26 @@ void Histogram1D::addDataPoint(double distance, double parameter) {
         bin = std::min(std::max(bin, 0), numBins - 1);
         
         sumValues[bin] += parameter;
+        sumSquaredValues[bin] += parameter * parameter;
         counts[bin]++;
     }
 }
 
-std::vector<double> Histogram1D::getAverageValues() const {
+std::pair<std::vector<double>, std::vector<double>> Histogram1D::getAverageValues() const {
     std::vector<double> averages(numBins, 0.0);
+    std::vector<double> stdDevs(numBins, 0.0);
     
     for (int i = 0; i < numBins; ++i) {
         if (counts[i] > 0) {
             averages[i] = sumValues[i] / counts[i];
         }
+        if (counts[i] > 1) {
+            double variance = (sumSquaredValues[i] - counts[i] * averages[i] * averages[i]) / (counts[i] - 1);
+            stdDevs[i] = std::sqrt(std::max(variance, 0.0));
+        }
     }
     
-    return averages;
+    return {averages, stdDevs};
 }
 
 void Histogram1D::saveToFile(const std::string& filename) const {
@@ -42,15 +50,16 @@ void Histogram1D::saveToFile(const std::string& filename) const {
     }
     
     // Escribir encabezado
-    file << "# r avg_BOP count\n";
+    file << "# r avg_BOP std_BOP count\n";
     
-    auto averages = getAverageValues();
+    auto [averages, stdDevs] = getAverageValues();
     
     for (int i = 0; i < numBins; ++i) {
         double distance = minDistance + (i + 0.5) * binWidth;
         file << std::fixed << std::setprecision(3) 
              << distance << " " 
              << std::setprecision(6) << averages[i] << " "
+             << stdDevs[i] << " "
              << counts[i] << "\n";
     }
     
