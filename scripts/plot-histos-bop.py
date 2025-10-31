@@ -94,8 +94,8 @@ Ejemplos de uso:
         lbl = file.split('-')[1][:-4]
         print(lbl)
         r, h, std = np.loadtxt(file, usecols=(0,1,2), unpack=True)
-        plt.errorbar(r, h, yerr=std, alpha=0.9, label=lbl)
-        # plt.plot(r, h, '-', alpha=0.6, label=lbl)
+        # plt.errorbar(r, h, yerr=std, alpha=0.9, label=lbl)
+        plt.plot(r, h, '-', alpha=0.6, label=lbl)
     plt.legend()
     plt.xlim([args.minimo, args.maximo])
     plt.xlabel(r'$r$ [A]')
